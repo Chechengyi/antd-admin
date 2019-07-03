@@ -11,9 +11,9 @@ dynamic.setDefaultLoadingComponent(() => {
 
 
 function RouterConfig({ history, app }) {
-  const routerData = getRouterData(app)
-  const UserLayout = routerData['/user'].component
-  const BasicLayout = routerData['/cont'].component
+  const routerData = getRouterData(app);
+  const UserLayout = routerData['/user'].component;
+  const BasicLayout = routerData['/cont'].component;
   return (
     <Router history={history}>
       <Switch>

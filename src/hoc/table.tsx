@@ -12,30 +12,33 @@ interface ITableState {
   num: number;
 }
 
-export interface IHocTableComponentProps {
-  resetData: Function;
-  searchData: Function;
-  handlePageChange: Function
+interface ITableParams {
+  type?: string;
+  page?: number;
+  num?: number
 }
 
-export default ({type, page, num}) => WrapComponent => {
-  return class extends React.Component<any> {
+export interface ITableProps {
+  dispatch: Function;
+  form?: any
+}
+
+export interface IHocTableComponentProps {
+  resetData: any;
+  searchData: any;
+  handlePageChange: any;
+  page: number
+}
+
+export default <P extends object>(setting: ITableParams) => (WrapComponent: React.ComponentType<P>) => {
+  return class extends React.Component<P & ITableProps> {
     readonly state: ITableState = {
       formValues: {},
-      page: page || 1,
-      num: num || 10
+      page: setting.page || 1,
+      num: setting.num || 10
     };
 
     warpCom;
-
-    constructor(props){
-      super(props);
-      // this.state = {
-      //   formValues: {},
-      //   page: page || 1,
-      //   num: num || 10
-      // }
-    }
 
     componentDidMount(){
       this.getData()
@@ -52,7 +55,7 @@ export default ({type, page, num}) => WrapComponent => {
     };
 
     getData = ()=> {
-      let elseSearchParams
+      let elseSearchParams;
       if (this.warpCom.getSearchParams) {
         elseSearchParams = this.warpCom.getSearchParams()
       } else {
@@ -60,7 +63,7 @@ export default ({type, page, num}) => WrapComponent => {
       }
       const { page, num, formValues } = this.state;
       this.props.dispatch({
-        type,
+        type: setting.type,
         payload: {
           page,
           num,

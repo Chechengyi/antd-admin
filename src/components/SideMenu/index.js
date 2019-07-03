@@ -5,15 +5,15 @@ import { Menu, Layout, Icon } from 'antd'
 import styles from './index.less'
 
 const SubMenu = Menu.SubMenu;
-const { Sider } = Layout
+const { Sider } = Layout;
 
 class SideMenu extends React.Component {
 
   menuItemClick =(path)=> {
-    path = '/' + path
-    if (path === this.props.location.pathname) return
-    this.props.history.push(path)
-  }
+    path = '/' + path;
+    if (path === this.props.location.pathname) return;
+    this.props.history.push(path);
+  };
 
   getSelectedMenuKeys = (path) => {
     const flatMenuKeys = this.getFlatMenuKeys(this.props.menuData);
@@ -28,7 +28,7 @@ class SideMenu extends React.Component {
       const itemRegExp = new RegExp(itemRegExpStr);
       return itemRegExp.test(path.replace(/^\//, ''));
     });
-  }
+  };
 
   getFlatMenuKeys(menus) {
     let keys = [];
@@ -49,7 +49,7 @@ class SideMenu extends React.Component {
       return []
     }
     return menuData.map( item=> {
-      if (!item.name) return null
+      if (!item.name) return null;
       if (item.children) {
         return (
           <SubMenu
@@ -74,7 +74,7 @@ class SideMenu extends React.Component {
         )
       }
     })
-  }
+  };
 
   render(){
     const { location } = this.props
@@ -89,7 +89,7 @@ class SideMenu extends React.Component {
           <h1>Chechengyi</h1>
         </div>
         <Menu 
-          theme="dark" 
+          theme="dark"
           selectedKeys={this.getSelectedMenuKeys(location.pathname)}
           mode="inline"
         >

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {
   Card,
   Form,
@@ -7,29 +7,36 @@ import {
   Input,
   Button
 } from 'antd'
-import TableHoc from '../../hoc/table'
+import TableHoc, { IHocTableComponentProps, ITableProps } from '../../hoc/table'
 import { connect } from 'dva'
-import MyTable from './MyTable'
+import MyTable  from './MyTable'
+import { FormComponentProps } from 'antd/lib/form/Form'
+import { IConnectState } from '../../models/connect'
 
-const FormItem = Form.Item
+const FormItem = Form.Item;
 
-@connect()
-@Form.create()
-@TableHoc({
+interface ITableListProps extends FormComponentProps, IHocTableComponentProps{
+  dispatch: Function
+}
+
+@connect((state: IConnectState)=>({
+  list: state.order.list
+}))
+// @ts-ignore
+@Form.create<ITableListProps>()
+// @ts-ignore
+@TableHoc<ITableListProps>({
   type: 'order/getData'
 })
-class TableList extends React.Component {
+class TableList extends React.Component<ITableListProps> {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      name: 'ccy'
-    }
+  componentDidMount(): void {
+    console.log(this.props)
   }
 
   getSearchParams = () => {
     return {}
-  }
+  };
 
   handleSearch =e=> {
     e.preventDefault()
@@ -38,10 +45,10 @@ class TableList extends React.Component {
       if (err) return
       this.props.searchData(values)
     })
-  }
+  };
 
   renderForm = () => {
-    const { getFieldDecorator } = this.props.form
+    const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSearch} layout='inline'>
         <Row gutter={10}>
@@ -61,7 +68,7 @@ class TableList extends React.Component {
         </Row>
       </Form>
     )
-  }
+  };
 
   render() {
     return (
