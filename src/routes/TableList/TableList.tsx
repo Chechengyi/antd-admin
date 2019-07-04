@@ -15,8 +15,11 @@ import { IConnectState } from '../../models/connect'
 
 const FormItem = Form.Item;
 
+// interface ITableListProps extends FormComponentProps, IHocTableComponentProps{
+//   dispatch: (e)=>void
+// }
 interface ITableListProps extends FormComponentProps, IHocTableComponentProps{
-  dispatch: Function
+  dispatch: (e)=>void
 }
 
 @connect((state: IConnectState)=>({
@@ -34,15 +37,15 @@ class TableList extends React.Component<ITableListProps> {
     console.log(this.props)
   }
 
-  getSearchParams = () => {
+  getSearchParams = (): object => {
     return {}
   };
 
   handleSearch =e=> {
-    e.preventDefault()
-    const { form } = this.props
+    e.preventDefault();
+    const { form } = this.props;
     form.validateFields( (err, values)=> {
-      if (err) return
+      if (err) return;
       this.props.searchData(values)
     })
   };

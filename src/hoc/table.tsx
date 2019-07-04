@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { getRequest } from '../utils/utils'
 
 /* 
   将表格或列表中搜索和分页的功能提取出来，
@@ -24,24 +25,35 @@ export interface ITableProps {
 }
 
 export interface IHocTableComponentProps {
-  resetData: any;
-  searchData: any;
-  handlePageChange: any;
+  resetData: (e: React.MouseEvent<HTMLElement>)=>void;
+  searchData: (e)=>void;
+  handlePageChange: (page: number, num: number)=>void;
   page: number
 }
 
+interface IParams {
+  [propsName: string]: any
+}
+
+type State = Readonly<ITableState>;
+
 export default <P extends object>(setting: ITableParams) => (WrapComponent: React.ComponentType<P>) => {
-  return class extends React.Component<P & ITableProps> {
-    readonly state: ITableState = {
-      formValues: {},
-      page: setting.page || 1,
-      num: setting.num || 10
-    };
+  return class extends React.Component<P & ITableProps , State> {
+    state: State;
+    constructor(props){
+      super(props);
+      const params: IParams = getRequest();
+      this.state = {
+        formValues: {},
+        page: setting.page || (params.page? parseInt(params.page) : 1 ),
+        num: setting.num ||10
+      }
+    }
 
     warpCom;
 
     componentDidMount(){
-      this.getData()
+      this.getData();
     }
 
     static displayName = WrapComponent.displayName || WrapComponent.name || 'Component';
@@ -71,6 +83,10 @@ export default <P extends object>(setting: ITableParams) => (WrapComponent: Reac
           ...elseSearchParams
         }
       })
+        .then( ()=> {
+          // 改变地址栏参数，加上page页码
+          window.history.replaceState(null, null, `?page=${page}`)
+        })
     };
 
     searchData = formValues=> {
@@ -90,7 +106,7 @@ export default <P extends object>(setting: ITableParams) => (WrapComponent: Reac
     render() {
       return <WrapComponent
               ref={com => this.warpCom = com}
-                {...this.props}
+                {...this.props }
                 {...this.state}
                 resetData={this.resetData}
                 searchData={this.searchData}

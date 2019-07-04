@@ -59,8 +59,8 @@ export default class Login extends React.Component<ILoginProps> {
   };
 
   render() {
-    const { form } = this.props
-    const { getFieldDecorator } = form
+    const { form } = this.props;
+    const { getFieldDecorator } = form;
     return (
       <div className={styles.main}>
         <Form onSubmit={this.onSubmit}>
