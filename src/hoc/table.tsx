@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { getRequest } from '../utils/utils'
+import {ReactElement} from "react";
 
 /* 
   将表格或列表中搜索和分页的功能提取出来，
@@ -37,8 +38,8 @@ interface IParams {
 
 type State = Readonly<ITableState>;
 
-export default <P extends object>(setting: ITableParams) => (WrapComponent: React.ComponentType<P>) => {
-  return class extends React.Component<P & ITableProps , State> {
+export default <P extends object>(setting: ITableParams) => (WrapComponent: React.ComponentType<P & ITableProps>) => {
+  return class TableHoc extends React.Component<P & ITableProps , State> {
     state: State;
     constructor(props){
       super(props);

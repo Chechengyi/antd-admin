@@ -9,7 +9,7 @@ const mockUrlObj = require('./dev.mock');
 const bodyParser = require('body-parser');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
-const port = 8080;  // 项目运行的端口
+const port = 3000;  // 项目运行的端口
 
 const devWebpackConfig = {
   entry: {

@@ -12,14 +12,16 @@ import { connect } from 'dva'
 import MyTable  from './MyTable'
 import { FormComponentProps } from 'antd/lib/form/Form'
 import { IConnectState } from '../../models/connect'
+import { RouteComponentProps } from 'react-router-dom'
 
 const FormItem = Form.Item;
 
-// interface ITableListProps extends FormComponentProps, IHocTableComponentProps{
+// interface ITableListProps extends FormComponentProps, IHocTableComponentProps, {
 //   dispatch: (e)=>void
 // }
-interface ITableListProps extends FormComponentProps, IHocTableComponentProps{
-  dispatch: (e)=>void
+interface ITableListProps extends FormComponentProps, RouteComponentProps{
+  dispatch: (e)=>void;
+  routerData: []
 }
 
 @connect((state: IConnectState)=>({
@@ -31,7 +33,7 @@ interface ITableListProps extends FormComponentProps, IHocTableComponentProps{
 @TableHoc<ITableListProps>({
   type: 'order/getData'
 })
-class TableList extends React.Component<ITableListProps> {
+class TableList extends React.Component<ITableListProps & IHocTableComponentProps> {
 
   componentDidMount(): void {
     console.log(this.props)
