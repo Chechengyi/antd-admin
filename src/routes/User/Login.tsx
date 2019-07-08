@@ -14,8 +14,8 @@ import { ILoginModalState, IConnectState } from '../../models/connect'
 
 const FormItem = Form.Item;
 
-interface ILoginProps extends FormComponentProps , RouteComponentProps, ILoginModalState{
-  dispatch: Function;
+interface ILoginProps extends FormComponentProps , RouteComponentProps, ILoginModalState {
+  dispatch: (e)=>Promise<void>;
 }
 
 @connect((state: IConnectState)=>({
@@ -100,3 +100,10 @@ export default class Login extends React.Component<ILoginProps> {
     )
   }
 }
+
+// export default connect((state: IConnectState)=>({
+//   loginStatus: state.login.loginStatus,
+//   loading: state.login.loading
+// }))(
+//   Form.create<ILoginProps>()(Login)
+// )
