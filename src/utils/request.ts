@@ -1,7 +1,7 @@
-import axios from 'axios'
 import {notification} from 'antd'
+import axios, { AxiosRequestConfig, Method } from 'axios';
 
-const host = ''
+const host = '';
 
 const statusType = {
   200: '服务器成功返回请求的数据',
@@ -41,14 +41,14 @@ axios.interceptors.response.use( res=> {
     })
   }
   return err
-})
+});
 
 export function request(url, options, isToast=true){
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
-  }
+  };
   
-  const method = options.method ||'GET'
+  const method: Method = options.method ||'GET';
   const setting = {
     headers,
     url: host + url,
@@ -56,6 +56,6 @@ export function request(url, options, isToast=true){
     [method==='GET'?'params':'data'] : options.data,
     timeout: 10000,
     isToast
-  }
-  return axios(setting)
+  };
+  return axios(setting as AxiosRequestConfig);
 }

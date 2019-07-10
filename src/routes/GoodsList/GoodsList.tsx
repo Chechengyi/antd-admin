@@ -7,7 +7,6 @@ import {
   Spin
 } from 'antd'
 import TableHoc from '../../hoc/table'
-import PageHeader from '../../components/PageHeader'
 import { RouteComponentProps } from 'react-router-dom'
 import { IConnectState, IGoodsModalState } from '../../models/connect'
 
@@ -30,7 +29,6 @@ export default class GoodsList extends React.Component<IGoodsListProps &　IGood
   render() {
     return (
       <div>
-        <PageHeader location={this.props.location} />
         <Spin spinning={this.props.loading}>
           <div style={{ minHeight: 200, margin: 16 }}>
             <Row gutter={25}>
