@@ -71,21 +71,21 @@ class GlobalHeader extends React.Component<IGlobalHeader> {
     );
     return (
       <Header className={styles.headerWarp}>
-        <Icon
-          className={styles.trigger}
-          type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
-          onClick={this.changeCollapsed}
-        />
-        {/*<div className={styles.locationInfo}>*/}
-        {/*  <Breadcrumb>*/}
-        {/*    /!* <Breadcrumb.Item>首页</Breadcrumb.Item> *!/*/}
-        {/*    {*/}
-        {/*      this.getBreadcrumbList().map( item=>(*/}
-        {/*        <Breadcrumb.Item key={item.path}>{item.name}</Breadcrumb.Item>*/}
-        {/*      ))*/}
-        {/*    }*/}
-        {/*  </Breadcrumb>*/}
-        {/*</div>*/}
+        {/*<Icon*/}
+        {/*  className={styles.trigger}*/}
+        {/*  type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}*/}
+        {/*  onClick={this.changeCollapsed}*/}
+        {/*/>*/}
+        <div className={styles.locationInfo}>
+          <Breadcrumb>
+            {/* <Breadcrumb.Item>首页</Breadcrumb.Item> */}
+            {
+              this.getBreadcrumbList().map( item=>(
+                <Breadcrumb.Item key={item.path}>{item.name}</Breadcrumb.Item>
+              ))
+            }
+          </Breadcrumb>
+        </div>
         <ul className={styles.rightMenu}>
           <Dropdown overlay={menu}>
             <li className={styles.menuItem}>

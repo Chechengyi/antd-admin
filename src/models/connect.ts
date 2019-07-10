@@ -1,18 +1,21 @@
 import { IGlobalModalState } from './global'
 import { ILoginModalState } from './login'
 import { IOrderModalState } from './order'
+import { IGoodsModalState } from './goods'
 
 export {
   IGlobalModalState,
   ILoginModalState,
-  IOrderModalState
+  IOrderModalState,
+  IGoodsModalState
 }
 
 
 export interface IConnectState {
   global: IGlobalModalState;
   login: ILoginModalState;
-  order: IOrderModalState
+  order: IOrderModalState;
+  goods: IGoodsModalState
 }
 
 export type Dispatch = <P = any, C = (payload: P) => void>(action: {

@@ -5,7 +5,7 @@ import { getMenuData } from './menu'
 // wrapper of dynamic
 const dynamicWrapper = (app, models, component) => dynamic({
   app,
-  models: () => models.map(m => import(`../models/${m}.ts`)),
+  models: () => models.map(m => import(`../models/${m}`)),
   component
 });
 

@@ -16,22 +16,21 @@ import { RouteComponentProps } from 'react-router-dom'
 
 const FormItem = Form.Item;
 
-interface ITableListProps extends FormComponentProps, RouteComponentProps{
+interface ITableListProps extends FormComponentProps, RouteComponentProps {
   dispatch: (e)=>void;
   routerData: []
 }
 
-
-// @ts-ignore
-@Form.create<ITableListProps>()
 @connect((state: IConnectState)=>({
   list: state.order.list
 }))
 // @ts-ignore
+@Form.create<ITableListProps>()
+// @ts-ignore
 @TableHoc<ITableListProps>({
   type: 'order/getData'
 })
-class TableList extends React.Component<ITableListProps & IHocTableComponentProps> {
+export default class TableList extends React.Component<ITableListProps & IHocTableComponentProps> {
 
   componentDidMount(): void {
     console.log(this.props)
@@ -90,4 +89,3 @@ class TableList extends React.Component<ITableListProps & IHocTableComponentProp
   }
 }
 
-export default TableList

@@ -8,16 +8,24 @@ import {
 } from 'antd'
 import TableHoc from '../../hoc/table'
 import PageHeader from '../../components/PageHeader'
+import { RouteComponentProps } from 'react-router-dom'
+import { IConnectState, IGoodsModalState } from '../../models/connect'
 
-@connect(state => ({
+interface IGoodsListProps extends RouteComponentProps{
+  dispatch: (e)=>void;
+  routerData: []
+}
+
+@connect((state: IConnectState) => ({
   list: state.goods.list,
   loading: state.goods.loading
 }))
-@TableHoc({
+// @ts-ignore
+@TableHoc<IGoodsListProps>({
   type: 'goods/getData'
 })
 
-export default class GoodsList extends React.Component {
+export default class GoodsList extends React.Component<IGoodsListProps &　IGoodsModalState> {
 
   render() {
     return (
@@ -27,7 +35,7 @@ export default class GoodsList extends React.Component {
           <div style={{ minHeight: 200, margin: 16 }}>
             <Row gutter={25}>
               {
-                this.props.list.map(item => (
+                this.props.list.map((item: any) => (
                   <Col span={6} style={{ marginBottom: 10 }} key={item.id}>
                     <Card>
                       <img src={item.img} alt="" style={{ width: '100%' }} />
