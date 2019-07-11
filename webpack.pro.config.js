@@ -5,10 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const themeColor = require('./theme');
 
 module.exports = {
   entry: {
-    index: './src/index.js',
+    index: './src/index.tsx',
     vendor: [
       'react',
       'react-dom'
@@ -76,6 +77,7 @@ module.exports = {
             options: {
               // sourceMap: true,
               javascriptEnabled: true,
+              modifyVars: themeColor
             },
           }],
           include: /node_modules/,

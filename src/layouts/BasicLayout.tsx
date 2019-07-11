@@ -48,10 +48,6 @@ class BasicLayout extends React.Component<IBasicLayoutProps> {
     collapsed: false,
   };
 
-  componentDidMount(){
-    console.log(this.props)
-  }
-
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;

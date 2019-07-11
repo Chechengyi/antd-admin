@@ -8,6 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const mockUrlObj = require('./dev.mock');
 const bodyParser = require('body-parser');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const themeColor = require('./theme');
 
 const port = 3000;  // 项目运行的端口
 
@@ -88,6 +89,7 @@ const devWebpackConfig = {
             options: {
               // sourceMap: true,
               javascriptEnabled: true,
+              modifyVars: themeColor
             },
           }],
           include: /node_modules/,

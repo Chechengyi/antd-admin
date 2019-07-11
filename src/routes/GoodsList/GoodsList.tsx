@@ -10,7 +10,7 @@ import TableHoc from '../../hoc/table'
 import { RouteComponentProps } from 'react-router-dom'
 import { IConnectState, IGoodsModalState } from '../../models/connect'
 
-interface IGoodsListProps extends RouteComponentProps{
+interface IGoodsListProps extends RouteComponentProps, IGoodsModalState{
   dispatch: (e)=>void;
   routerData: []
 }
@@ -24,7 +24,7 @@ interface IGoodsListProps extends RouteComponentProps{
   type: 'goods/getData'
 })
 
-export default class GoodsList extends React.Component<IGoodsListProps &　IGoodsModalState> {
+export default class GoodsList extends React.Component<IGoodsListProps> {
 
   render() {
     return (

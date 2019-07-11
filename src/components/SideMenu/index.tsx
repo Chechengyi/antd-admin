@@ -3,31 +3,43 @@
 import React from 'react'
 import { Menu, Layout, Icon } from 'antd'
 import styles from './index.less'
+import { RouteComponentProps } from 'react-router-dom'
+import { IGlobalModalState } from '../../models/connect'
 
 const SubMenu = Menu.SubMenu;
 const { Sider } = Layout;
 
-class SideMenu extends React.Component {
+interface ISideMenuProps {
+  menuData: any[];
+  location: RouteComponentProps['location'];
+  history: RouteComponentProps['history'];
+  collapsed: IGlobalModalState['collapsed']
+}
 
-  menuItemClick =(path)=> {
+class SideMenu extends React.Component<ISideMenuProps> {
+
+  menuItemClick =(path: string)=> {
     path = '/' + path;
     if (path === this.props.location.pathname) return;
     this.props.history.push(path);
   };
 
-  getSelectedMenuKeys = (path) => {
+  getMenuKeys = (path: string): Array<string> => {
     const flatMenuKeys = this.getFlatMenuKeys(this.props.menuData);
-    if (flatMenuKeys.indexOf(path.replace(/^\//, '')) > -1) {
-      return [path.replace(/^\//, '')];
-    }
-    if (flatMenuKeys.indexOf(path.replace(/^\//, '').replace(/\/$/, '')) > -1) {
-      return [path.replace(/^\//, '').replace(/\/$/, '')];
-    }
-    return flatMenuKeys.filter((item) => {
-      const itemRegExpStr = `^${item.replace(/:[\w-]+/g, '[\\w-]+')}$`;
-      const itemRegExp = new RegExp(itemRegExpStr);
-      return itemRegExp.test(path.replace(/^\//, ''));
-    });
+    path = path.replace(/^\//, '');
+    let arr: Array<string> = path.split('/');
+    let back_arr: Array<string>;
+    back_arr = arr.reduce( (ret, item)=> {
+      if (ret.length===0) {
+        return [item]
+      } else {
+        return [...ret, ret[ret.length-1] + '/' +item];
+      }
+    }, []);
+    back_arr.shift();
+    return back_arr.filter( item=> {
+      return flatMenuKeys.indexOf(item) > -1;
+    })
   };
 
   getFlatMenuKeys(menus) {
@@ -44,7 +56,6 @@ class SideMenu extends React.Component {
   }
 
   getNavMenuItems = (menuData)=> {
-    // const { menuData } = this.props
     if ( !menuData ) {
       return []
     }
@@ -77,7 +88,7 @@ class SideMenu extends React.Component {
   };
 
   render(){
-    const { location } = this.props
+    const { location } = this.props;
     return (
       <Sider
         trigger={null}
@@ -90,10 +101,12 @@ class SideMenu extends React.Component {
         </div>
         <Menu 
           theme="dark"
-          selectedKeys={this.getSelectedMenuKeys(location.pathname)}
+          selectedKeys={this.getMenuKeys(location.pathname)}
+          // selectedKeys={['cont/list', 'cont/list/one']}
           mode="inline"
+          defaultOpenKeys={this.getMenuKeys(location.pathname)}
         >
-          {this.getNavMenuItems(this.props.menuData)}    
+          {this.getNavMenuItems(this.props.menuData)}
         </Menu>
       </Sider>
     )

@@ -17,10 +17,24 @@ const menuData = [
       {
         name: '商品列表',
         path: 'two'
+      },
+      {
+        name: '二级菜单',
+        path: 'menu',
+        children: [
+          {
+            name: '三级菜单_a',
+            path: 'one'
+          },
+          {
+            name: '三级菜单_b',
+            path: 'two'
+          }
+        ]
       }
     ]
   }
-]
+];
 
 function formatter(data, parentPath=''){
   const list = []
