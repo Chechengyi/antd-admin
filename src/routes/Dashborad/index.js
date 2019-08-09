@@ -11,7 +11,9 @@ export default class Dashborad extends React.Component {
   render(){
     return (
       <Card>
-        <div>ddd</div>
+        <div>
+          welcome
+        </div>
       </Card>
     )
   }

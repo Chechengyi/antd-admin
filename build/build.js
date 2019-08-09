@@ -6,7 +6,7 @@ const rm = require('rimraf');
 const webpackConfig = require('./webpack.pro.config');
 
 // 每次打包之前删除掉之前的打包输出文件
-rm('./dist', function (err) {
+rm('../dist', function (err) {
   if (err) throw err;
   webpack(webpackConfig, function(err, stats){
     process.stdout.write(stats.toString({
