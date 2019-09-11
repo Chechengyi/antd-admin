@@ -16,9 +16,47 @@ interface ISideMenuProps {
   collapsed: IGlobalModalState['collapsed']
 }
 
-class SideMenu extends React.Component<ISideMenuProps> {
+interface ISideMenuState {
+  openKeys: string [];
+  selectKeys: string [];
+}
 
-  menuItemClick =(path: string)=> {
+type State = Readonly<ISideMenuState>
+
+class SideMenu extends React.Component<ISideMenuProps, State> {
+
+  rootSubmenuKeys: string[] = [];
+
+  state: State = {
+    openKeys: [],
+    selectKeys: []
+  };
+
+  componentDidMount(): void {
+    const menuKeys = this.getMenuKeys(this.props.location.pathname);
+    this.setState({
+      openKeys: menuKeys
+    });
+    this.setState({
+      // 如果没有selectKeys 就跳到菜单列表的第一个页面
+      selectKeys: menuKeys.length === 0? [this.props.menuData[0].path] : menuKeys
+    });
+  }
+
+  componentWillReceiveProps(nextProps: Readonly<ISideMenuProps>, nextContext: any): void {
+    if ( nextProps.location.pathname !== this.props.location.pathname ) {
+      const menuKeys = this.getMenuKeys(nextProps.location.pathname);
+      this.setState({
+        openKeys: menuKeys
+      });
+      this.setState({
+        // 如果没有selectKeys 就跳到菜单列表的第一个页面
+        selectKeys: menuKeys.length === 0? [this.props.menuData[0].path] : menuKeys
+      });
+    }
+  }
+
+  menuItemClick =(path: string) => {
     path = '/' + path;
     if (path === this.props.location.pathname) return;
     this.props.history.push(path);
@@ -55,13 +93,17 @@ class SideMenu extends React.Component<ISideMenuProps> {
     return keys;
   }
 
-  getNavMenuItems = (menuData)=> {
+  getNavMenuItems = (menuData, level=1)=> {
     if ( !menuData ) {
       return []
+    }
+    if (level===1) {
+      this.rootSubmenuKeys = [];
     }
     return menuData.map( item=> {
       if (!item.name) return null;
       if (item.children) {
+        level===1 &&　this.rootSubmenuKeys.push(item.path);
         return (
           <SubMenu
             key={item.path}
@@ -73,7 +115,7 @@ class SideMenu extends React.Component<ISideMenuProps> {
             }
           >
             {
-              this.getNavMenuItems(item.children)
+              this.getNavMenuItems(item.children, level+1)
             }
           </SubMenu>
         )
@@ -87,8 +129,24 @@ class SideMenu extends React.Component<ISideMenuProps> {
     })
   };
 
+  handSelect = (e)=> {
+    this.setState({
+      selectKeys: e.selectedKeys
+    })
+  };
+
+  handMenuChange = openKeys=> {
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      this.setState({ openKeys });
+    } else {
+      this.setState({
+        openKeys: latestOpenKey ? [latestOpenKey] : [],
+      });
+    }
+  };
+
   render(){
-    const { location } = this.props;
     return (
       <Sider
         trigger={null}
@@ -101,10 +159,11 @@ class SideMenu extends React.Component<ISideMenuProps> {
         </div>
         <Menu 
           theme="dark"
-          selectedKeys={this.getMenuKeys(location.pathname)}
-          // selectedKeys={['cont/list', 'cont/list/one']}
+          selectedKeys={this.state.selectKeys}
+          openKeys={this.state.openKeys}
           mode="inline"
-          defaultOpenKeys={this.getMenuKeys(location.pathname)}
+          onSelect={this.handSelect}
+          onOpenChange={this.handMenuChange}
         >
           {this.getNavMenuItems(this.props.menuData)}
         </Menu>

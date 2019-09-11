@@ -1,5 +1,12 @@
+interface IMenuDataItem {
+  name: string;  // 菜单名字
+  icon?: string;
+  path: string;
+  children?: Array<IMenuDataItem>;
+}
 
-const menuData = [
+
+const menuData: IMenuDataItem[] = [
   {
     name:'首页',
     icon: 'pie-chart',
@@ -33,6 +40,18 @@ const menuData = [
         ]
       }
     ]
+  },
+  {
+    name: '列表二',
+    icon: 'ordered-list',
+    path: 'cont/two',
+    children: [{
+      name: '选项1',
+      path: 'one'
+    }, {
+      name: '选项2',
+      path: 'two'
+    }]
   }
 ];
 
