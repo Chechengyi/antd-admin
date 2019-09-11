@@ -4,7 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const themeColor = require('../theme');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -101,6 +101,13 @@ module.exports = {
       template: './public/index.html'
     }),
     new ExtractTextPlugin('index.css'),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: 'static',
+        ignore: ['.*']
+      }
+    ])
   ],
   optimization: {
     splitChunks: {

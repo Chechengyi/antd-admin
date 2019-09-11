@@ -8,6 +8,8 @@
 
 .idea
 
+dist.rar
+
 # misc
 .DS_Store
 npm-debug.log*
