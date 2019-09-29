@@ -15,11 +15,6 @@ interface GoodsListProps extends RouteComponentProps, IGoodsModalState{
   routerData: [];
 }
 
-@connect((state: ConnectState) => ({
-  list: state.goods.list,
-  loading: state.goods.loading
-}))
-
 class GoodsList extends React.Component<GoodsListProps> {
 
   render() {
@@ -46,6 +41,11 @@ class GoodsList extends React.Component<GoodsListProps> {
     )
   }
 }
-export default TableHoc<GoodsListProps>({
-  type: 'goods/getData'
-})(GoodsList)
+export default connect((state: ConnectState) => ({
+  list: state.goods.list,
+  loading: state.goods.loading
+}))(
+  TableHoc<GoodsListProps>({
+    type: 'goods/getData'
+  })(GoodsList)
+)
