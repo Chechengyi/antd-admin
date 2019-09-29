@@ -1,4 +1,6 @@
 
+/* eslint-disable */
+
 process.env.NODE_ENV = 'production';
 // "build": "webpack --config=webpack.pro.config --mode production"
 const webpack = require('webpack');
@@ -23,3 +25,5 @@ rm('../dist', function (err) {
     }
   })
 });
+
+/* eslint-disable no-new */

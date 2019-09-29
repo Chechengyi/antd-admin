@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable */
+
 const path = require('path');
 const merge = require('webpack-merge');
 const commenConfig = require('./webpack.base.config');
@@ -59,3 +61,5 @@ module.exports = new Promise( (resolve, reject)=> {
   }));
   resolve(devWebpackConfig)
 });
+
+/* eslint-disable no-new */

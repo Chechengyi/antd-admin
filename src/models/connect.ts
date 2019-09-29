@@ -11,11 +11,11 @@ export {
 }
 
 
-export interface IConnectState {
+export interface ConnectState {
   global: IGlobalModalState;
   login: ILoginModalState;
   order: IOrderModalState;
-  goods: IGoodsModalState
+  goods: IGoodsModalState;
 }
 
 export type Dispatch = <P = any, C = (payload: P) => void>(action: {

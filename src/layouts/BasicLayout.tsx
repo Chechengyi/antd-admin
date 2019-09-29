@@ -10,7 +10,7 @@ import { Route, Redirect, Switch } from 'dva/router'
 import SideMenu from '../components/SideMenu'
 import NotFound from '../routes/Exception/404'
 import DocumentTitle from 'react-document-title'
-import { IConnectState, IGlobalModalState } from '../models/connect'
+import { ConnectState, IGlobalModalState } from '../models/connect'
 import { RouteComponentProps  } from 'react-router-dom'
 
 const {
@@ -39,7 +39,7 @@ interface IBasicLayoutProps extends RouteComponentProps, IGlobalModalState{
   routerData: [];
 }
 
-@connect( (state: IConnectState)=>({
+@connect( (state: ConnectState)=>({
   collapsed: state.global.collapsed
 }))
 

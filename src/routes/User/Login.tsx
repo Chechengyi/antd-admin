@@ -10,22 +10,20 @@ import {
 import { FormComponentProps } from 'antd/lib/form/Form'
 import { connect } from 'dva'
 import { RouteComponentProps } from 'react-router-dom'
-import { ILoginModalState, IConnectState } from '../../models/connect'
+import { ILoginModalState, ConnectState } from '../../models/connect'
 
 const FormItem = Form.Item;
 
-interface ILoginProps extends FormComponentProps , RouteComponentProps, ILoginModalState {
-  dispatch: (e)=>Promise<void>;
+interface LoginProps extends FormComponentProps , RouteComponentProps, ILoginModalState {
+  dispatch: (e) => Promise<void>;
 }
 
-@connect((state: IConnectState)=>({
+@connect((state: ConnectState)=>({
   loginStatus: state.login.loginStatus,
   loading: state.login.loading
 }))
-// @ts-ignore
-@Form.create<ILoginProps>()
 
-export default class Login extends React.Component<ILoginProps> {
+class Login extends React.Component<LoginProps> {
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -101,9 +99,9 @@ export default class Login extends React.Component<ILoginProps> {
   }
 }
 
-// export default connect((state: IConnectState)=>({
-//   loginStatus: state.login.loginStatus,
-//   loading: state.login.loading
-// }))(
-//   Form.create<ILoginProps>()(Login)
-// )
+export default connect((state: ConnectState)=>({
+  loginStatus: state.login.loginStatus,
+  loading: state.login.loading
+}))(
+  Form.create<LoginProps>()(Login)
+)

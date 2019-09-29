@@ -1,12 +1,11 @@
-interface IMenuDataItem {
+interface MenuDataItem {
   name: string;  // 菜单名字
   icon?: string;
   path: string;
-  children?: Array<IMenuDataItem>;
+  children?: Array<MenuDataItem>;
 }
 
-
-const menuData: IMenuDataItem[] = [
+const menuData: MenuDataItem[] = [
   {
     name:'首页',
     icon: 'pie-chart',

@@ -1,20 +1,16 @@
 import React from 'react'
-import {
-  Card
-} from 'antd'
+import styles from './styles.css'
 
-export default class Dashborad extends React.Component {
+const Dashboard = props=> {
 
-  componentDidMount(){
-  }
+  return (
+    <div className={styles.App}>
+      <header className={styles.AppHeader}>
+        <img src='/static/logo.svg' className={styles.AppLogo} alt="logo" />
+        <h1 className={styles.AppTitle}>Welcome</h1>
+      </header>
+    </div>
+  )
+};
 
-  render(){
-    return (
-      <Card>
-        <div>
-          welcome
-        </div>
-      </Card>
-    )
-  }
-}
+export default Dashboard

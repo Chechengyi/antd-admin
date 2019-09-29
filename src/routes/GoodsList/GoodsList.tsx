@@ -8,23 +8,19 @@ import {
 } from 'antd'
 import TableHoc from '../../hoc/table'
 import { RouteComponentProps } from 'react-router-dom'
-import { IConnectState, IGoodsModalState } from '../../models/connect'
+import { ConnectState, IGoodsModalState } from '../../models/connect'
 
-interface IGoodsListProps extends RouteComponentProps, IGoodsModalState{
-  dispatch: (e)=>void;
-  routerData: []
+interface GoodsListProps extends RouteComponentProps, IGoodsModalState{
+  dispatch: (e) => void;
+  routerData: [];
 }
 
-@connect((state: IConnectState) => ({
+@connect((state: ConnectState) => ({
   list: state.goods.list,
   loading: state.goods.loading
 }))
-// @ts-ignore
-@TableHoc<IGoodsListProps>({
-  type: 'goods/getData'
-})
 
-export default class GoodsList extends React.Component<IGoodsListProps> {
+class GoodsList extends React.Component<GoodsListProps> {
 
   render() {
     return (
@@ -50,3 +46,6 @@ export default class GoodsList extends React.Component<IGoodsListProps> {
     )
   }
 }
+export default TableHoc<GoodsListProps>({
+  type: 'goods/getData'
+})(GoodsList)

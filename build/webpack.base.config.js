@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable */
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -22,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /(\.tsx|\.ts)$/, 
+        test: /(\.tsx|\.ts)$/,
         use: ['babel-loader', 'ts-loader']
       },
       {
@@ -49,20 +50,21 @@ module.exports = {
       {
         test: /\.less$/,
         use: ['style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            modules: true,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
           },
-        },
-        {
-          loader: 'less-loader',
-          options: {
-            sourceMap: true,
-            javascriptEnabled: true,
-          },
-        }],
+          {
+            loader: 'less-loader',
+            options: {
+              sourceMap: true,
+              javascriptEnabled: true,
+            },
+          }
+        ],
         exclude: /node_modules/,
       },
       {
@@ -81,7 +83,7 @@ module.exports = {
               modifyVars: themeColor
             },
           }],
-          include: /node_modules/,
+        include: /node_modules/,
       }
     ],
   },
@@ -121,3 +123,5 @@ module.exports = {
     }
   },
 };
+
+/* eslint-disable no-new */

@@ -1,28 +1,27 @@
 import * as React from 'react'
 import { getRequest } from '../utils/utils'
-import {ReactElement} from "react";
 
-/* 
+/*
   将表格或列表中搜索和分页的功能提取出来，
   搜索字段和分页的参数都被提到了本高阶组件当中，
   type  代表获取数据后需要 dispatch 的model的type
 */
 
-interface ITableState {
+interface TableState {
   formValues: Object;
   page: number;
   num: number;
 }
 
-interface ITableParams {
+interface TableParams {
   type?: string;
   page?: number;
-  num?: number
+  num?: number;
 }
 
-export interface ITableProps {
+export interface TableProps {
   dispatch: Function;
-  form?: any
+  form?: any;
 }
 
 export interface IHocTableComponentProps {
@@ -36,10 +35,10 @@ interface IParams {
   [propsName: string]: any
 }
 
-type State = Readonly<ITableState>;
+type State = Readonly<TableState>;
 
-export default <P extends object>(setting: ITableParams) => (WrapComponent: React.ComponentType<P & ITableProps>) => {
-  return class TableHoc extends React.Component<P & ITableProps , State> {
+export default <P extends object>(setting: TableParams) => (WrapComponent: React.ComponentType<P & TableProps>) => {
+  return class TableHoc extends React.Component<P & TableProps , State> {
     state: State;
     constructor(props){
       super(props);
@@ -105,14 +104,16 @@ export default <P extends object>(setting: ITableParams) => (WrapComponent: Reac
     };
 
     render() {
-      return <WrapComponent
-              ref={com => this.warpCom = com}
-                {...this.props }
-                {...this.state}
-                resetData={this.resetData}
-                searchData={this.searchData}
-                handlePageChange={this.handlePageChange}
-              />
+      return (
+        <WrapComponent
+          ref={com => this.warpCom = com}
+          {...this.props }
+          {...this.state}
+          resetData={this.resetData}
+          searchData={this.searchData}
+          handlePageChange={this.handlePageChange}
+        />
+      )
     }
   }
 }

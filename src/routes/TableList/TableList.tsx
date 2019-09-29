@@ -7,34 +7,21 @@ import {
   Input,
   Button
 } from 'antd'
-import TableHoc, { IHocTableComponentProps, ITableProps } from '../../hoc/table'
+import TableHoc, { IHocTableComponentProps } from '../../hoc/table'
 import { connect } from 'dva'
 import MyTable  from './MyTable'
 import { FormComponentProps } from 'antd/lib/form/Form'
-import { IConnectState } from '../../models/connect'
+import { ConnectState } from '../../models/connect'
 import { RouteComponentProps } from 'react-router-dom'
 
 const FormItem = Form.Item;
 
-interface ITableListProps extends FormComponentProps, RouteComponentProps {
-  dispatch: (e)=>void;
-  routerData: []
+interface TableListProps extends FormComponentProps, RouteComponentProps {
+  dispatch: (e) => void;
+  routerData: [];
 }
 
-@connect((state: IConnectState)=>({
-  list: state.order.list
-}))
-// @ts-ignore
-@Form.create<ITableListProps>()
-// @ts-ignore
-@TableHoc<ITableListProps>({
-  type: 'order/getData'
-})
-export default class TableList extends React.Component<ITableListProps & IHocTableComponentProps> {
-
-  componentDidMount(): void {
-    console.log(this.props)
-  }
+class TableList extends React.Component<TableListProps & IHocTableComponentProps> {
 
   getSearchParams = (): object => {
     return {}
@@ -79,7 +66,7 @@ export default class TableList extends React.Component<ITableListProps & IHocTab
           {this.renderForm()}
         </div>
         <div style={{marginTop: 20}}>
-          <MyTable 
+          <MyTable
             page={this.props.page}
             handlePageChange={this.props.handlePageChange}
           />
@@ -89,3 +76,12 @@ export default class TableList extends React.Component<ITableListProps & IHocTab
   }
 }
 
+export default connect((state: ConnectState)=>({
+  list: state.order.list
+}))(
+  Form.create<TableListProps>()(
+    TableHoc<TableListProps>({
+      type: 'order/getData'
+    })(TableList)
+  )
+)
