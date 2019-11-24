@@ -3,7 +3,7 @@ import dynamic from 'dva/dynamic'
 import { getMenuData } from './menu'
 
 // wrapper of dynamic
-const dynamicWrapper = (app, models, component) => dynamic({
+const dynamicWrapper = (app, models, component) => (dynamic as any)({
   app,
   models: () => models.map(m => import(`../models/${m}`)),
   component
