@@ -1,4 +1,4 @@
-interface MenuDataItem {
+export interface MenuDataItem {
   name: string;  // 菜单名字
   icon?: string;
   path: string;
@@ -7,18 +7,19 @@ interface MenuDataItem {
 
 const menuData: MenuDataItem[] = [
   {
-    name:'首页',
-    icon: 'pie-chart',
+    name: '首页',
+    icon: 'PieChartOutlined',
     path: 'cont/dashborad'
   },
   {
     name: '列表一',
-    icon: 'ordered-list',
+    icon: 'OrderedListOutlined',
     path: 'cont/list',
     children: [
       {
         name: '查询表格',
-        path: 'one'
+        path: 'one',
+        icon: 'BlockOutlined'
       },
       {
         name: '商品列表',
@@ -42,7 +43,7 @@ const menuData: MenuDataItem[] = [
   },
   {
     name: '列表二',
-    icon: 'ordered-list',
+    icon: 'UnorderedListOutlined',
     path: 'cont/two',
     children: [{
       name: '选项1',
@@ -54,10 +55,10 @@ const menuData: MenuDataItem[] = [
   }
 ];
 
-function formatter(data, parentPath=''){
+function formatter(data, parentPath = '') {
   const list = []
-  data.forEach( item=> {
-    if(item.children){
+  data.forEach(item => {
+    if (item.children) {
       list.push({
         ...item,
         path: `${parentPath}${item.path}`,
@@ -74,4 +75,4 @@ function formatter(data, parentPath=''){
   return list
 }
 
-export const getMenuData = ()=>formatter(menuData)
+export const getMenuData = () => formatter(menuData)

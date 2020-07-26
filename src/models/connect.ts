@@ -1,11 +1,11 @@
 import { IGlobalModalState } from './global'
-import { ILoginModalState } from './login'
+import { LoginModalState } from './login'
 import { IOrderModalState } from './order'
 import { IGoodsModalState } from './goods'
 
 export {
   IGlobalModalState,
-  ILoginModalState,
+  LoginModalState,
   IOrderModalState,
   IGoodsModalState
 }
@@ -13,7 +13,7 @@ export {
 
 export interface ConnectState {
   global: IGlobalModalState;
-  login: ILoginModalState;
+  login: LoginModalState;
   order: IOrderModalState;
   goods: IGoodsModalState;
 }

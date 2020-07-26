@@ -6,8 +6,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.2.1",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
-    "antd": "^3.25.2",
+    "antd": "^4.x.x",
     "axios": "^0.19.0",
     "dva": "^2.4.1",
     "eslint": "^6.7.0",

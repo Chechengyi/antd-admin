@@ -2,17 +2,21 @@
   工具函数
 */
 
-export function getRequest() {
+interface GetRequestBack {
+  [propsName: string]: string | number
+}
+
+export function getRequest(): GetRequestBack {
   let url = window.location.search; //获取url中"?"符后的字串
   let theRequest = new Object();
   if (url.indexOf("?") != -1) {
     let str = url.substr(1);
     let strs = str.split("&");
     for (let i = 0; i < strs.length; i++) {
-      theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+      theRequest[strs[i].split("=")[0] as string] = unescape(strs[i].split("=")[1]) as string | number;
     }
   }
-  return theRequest;
+  return theRequest as GetRequestBack;
 }
 
 export function getRoutes(path, routerData) {

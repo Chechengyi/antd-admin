@@ -1,12 +1,12 @@
 import * as React from 'react'
 import {
   Layout,
-  Icon,
   Avatar,
   Dropdown,
   Menu,
   Breadcrumb
 } from 'antd'
+import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import styles from './index.less'
 import { connect } from 'dva'
 import { getMenuData } from '../../common/menu'
@@ -31,24 +31,24 @@ class GlobalHeader extends React.Component<IGlobalHeader> {
     })
   };
 
-  logout = ()=> {
+  logout = () => {
     this.props.dispatch({
       type: 'login/logout'
     })
   };
 
-  getBreadcrumbList =()=> {
+  getBreadcrumbList = () => {
     var arr = []
     const menu = getMenuData()
     const pathname = this.props.location.pathname
-    function getBreadcrumb(menu){
-      menu.forEach( item=> {
-        if ( pathname.indexOf(item.path) > -1 ) {
+    function getBreadcrumb(menu) {
+      menu.forEach(item => {
+        if (pathname.indexOf(item.path) > -1) {
           arr.push({
             name: item.name,
             path: item.path
           })
-          if ( item.children ) {
+          if (item.children) {
             getBreadcrumb(item.children)
           }
         }
@@ -65,22 +65,17 @@ class GlobalHeader extends React.Component<IGlobalHeader> {
         <MenuItem>2</MenuItem>
         <Menu.Divider />
         <MenuItem>
-          <div onClick={this.logout}> <Icon type="logout" />  退出登录</div>
+          <div onClick={this.logout}> <LoginOutlined />  退出登录</div>
         </MenuItem>
       </Menu>
     );
     return (
       <Header className={styles.headerWarp}>
-        {/*<Icon*/}
-        {/*  className={styles.trigger}*/}
-        {/*  type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}*/}
-        {/*  onClick={this.changeCollapsed}*/}
-        {/*/>*/}
         <div className={styles.locationInfo}>
           <Breadcrumb>
             {/* <Breadcrumb.Item>首页</Breadcrumb.Item> */}
             {
-              this.getBreadcrumbList().map( item=>(
+              this.getBreadcrumbList().map(item => (
                 <Breadcrumb.Item key={item.path}>{item.name}</Breadcrumb.Item>
               ))
             }
@@ -89,7 +84,7 @@ class GlobalHeader extends React.Component<IGlobalHeader> {
         <ul className={styles.rightMenu}>
           <Dropdown overlay={menu}>
             <li className={styles.menuItem}>
-              <Avatar icon='user' />
+              <Avatar icon={<UserOutlined />} />
               <span className={styles.username}>Chechengyi</span>
             </li>
           </Dropdown>

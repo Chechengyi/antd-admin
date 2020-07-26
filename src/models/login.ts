@@ -5,39 +5,39 @@ import { routerRedux } from 'dva/router'
 
 type LOGIN_STATUS = 'LOGIN' | 'NO_LOGIN' | 'ERROR';
 
-export interface ILoginModalState {
+export interface LoginModalState {
   loginStatus: LOGIN_STATUS;
   loading: boolean
 }
 
-export interface ILoginModalType {
+export interface LoginModalType {
   namespace: 'login',
-  state: ILoginModalState,
+  state: LoginModalState,
   effects: {
     login: Effect;
     logout: Effect;
   },
   reducers: {
-    saveLoginStatus: Reducer<ILoginModalState>,
-    changeLoading: Reducer<ILoginModalState>,
+    saveLoginStatus: Reducer<LoginModalState>,
+    changeLoading: Reducer<LoginModalState>,
 
   }
 }
 
-const loginModal: ILoginModalType = {
+const loginModal: LoginModalType = {
   namespace: 'login',
   state: {
     loginStatus: 'NO_LOGIN',
     loading: false
   },
   effects: {
-    *login({payload}, {call, put}){
+    *login({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload: true
       });
       const res = yield call(login, payload);
-      if ( res.code === 'OK' ) {
+      if (res.code === 'OK') {
         yield put({
           type: 'saveLoginStatus',
           payload: 'LOGIN'
@@ -54,7 +54,7 @@ const loginModal: ILoginModalType = {
         payload: false
       });
     },
-    *logout(_, {call, put}){
+    *logout(_, { call, put }) {
       yield put({
         type: 'saveLoginStatus',
         payload: 'NO_LOGIN'
@@ -63,13 +63,13 @@ const loginModal: ILoginModalType = {
     }
   },
   reducers: {
-    saveLoginStatus(state, {payload}){
+    saveLoginStatus(state, { payload }) {
       return {
         ...state,
-        loginStatus:payload
+        loginStatus: payload
       }
     },
-    changeLoading(state, {payload}){
+    changeLoading(state, { payload }) {
       return {
         ...state,
         loading: payload

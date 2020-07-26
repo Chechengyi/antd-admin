@@ -6,6 +6,8 @@
 # production
 /dist
 
+package-lock.json
+
 .idea
 
 dist.rar

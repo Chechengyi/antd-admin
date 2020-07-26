@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { getRequest } from '../utils/utils'
+import { Store } from 'antd/lib/form/interface';
 
 /*
   将表格或列表中搜索和分页的功能提取出来，
@@ -8,7 +9,7 @@ import { getRequest } from '../utils/utils'
 */
 
 interface TableState {
-  formValues: Object;
+  formValues: Store;
   page: number;
   num: number;
 }
@@ -21,99 +22,98 @@ interface TableParams {
 
 export interface TableProps {
   dispatch: Function;
-  form?: any;
 }
 
-export interface IHocTableComponentProps {
-  resetData: (e: React.MouseEvent<HTMLElement>)=>void;
-  searchData: (e)=>void;
-  handlePageChange: (page: number, num: number)=>void;
+export interface HocTableComponentProps {
+  resetData: (e: React.MouseEvent<HTMLElement>) => void;
+  searchData: (e) => void;
+  handlePageChange: (page: number, num: number) => void;
   page: number
 }
 
 interface IParams {
-  [propsName: string]: any
+  [propsName: string]: string | number
 }
 
 type State = Readonly<TableState>;
-
-export default <P extends object>(setting: TableParams) => (WrapComponent: React.ComponentType<P & TableProps>) => {
-  return class TableHoc extends React.Component<P & TableProps , State> {
-    state: State;
-    constructor(props){
-      super(props);
-      const params: IParams = getRequest();
-      this.state = {
-        formValues: {},
-        page: setting.page || (params.page? parseInt(params.page) : 1 ),
-        num: setting.num ||10
-      }
-    }
-
-    warpCom;
-
-    componentDidMount(){
-      this.getData();
-    }
-
-    static displayName = WrapComponent.displayName || WrapComponent.name || 'Component';
-
-    resetData = () => {
-      this.props.form && this.props.form.resetFields();
-      this.setState({
-        page: 1,
-        formValues: {}
-      }, this.getData)
-    };
-
-    getData = ()=> {
-      let elseSearchParams;
-      if (this.warpCom.getSearchParams) {
-        elseSearchParams = this.warpCom.getSearchParams()
-      } else {
-        elseSearchParams = {}
-      }
-      const { page, num, formValues } = this.state;
-      this.props.dispatch({
-        type: setting.type,
-        payload: {
-          page,
-          num,
-          ...formValues,
-          ...elseSearchParams
+export default <P extends object>(setting: TableParams) =>
+  (WrapComponent: React.ComponentType<P>): React.ComponentType<Omit<P, keyof HocTableComponentProps>> => {
+    return class TableHoc extends React.Component<P & TableProps, State> {
+      state: State;
+      constructor(props) {
+        super(props);
+        const params: IParams = getRequest();
+        this.state = {
+          formValues: {},
+          page: setting.page || (params.page ? Number(params.page) : 1),
+          num: setting.num || 10
         }
-      })
-        .then( ()=> {
-          // 改变地址栏参数，加上page页码
-          window.history.replaceState(null, null, `?page=${page}`)
+      }
+
+      warpCom;
+
+      componentDidMount() {
+        this.getData();
+      }
+
+      static displayName = WrapComponent.displayName || WrapComponent.name || 'Component';
+
+      resetData = () => {
+        this.warpCom.form && this.warpCom.form.resetFields();
+        this.setState({
+          page: 1,
+          formValues: {}
+        }, this.getData)
+      };
+
+      getData = () => {
+        let elseSearchParams;
+        if (this.warpCom.getSearchParams) {
+          elseSearchParams = this.warpCom.getSearchParams()
+        } else {
+          elseSearchParams = {}
+        }
+        const { page, num, formValues } = this.state;
+        this.props.dispatch({
+          type: setting.type,
+          payload: {
+            page,
+            num,
+            ...formValues,
+            ...elseSearchParams
+          }
         })
-    };
+          .then(() => {
+            // 改变地址栏参数，加上page页码
+            window.history.replaceState(null, null, `?page=${page}`)
+          })
+      };
 
-    searchData = formValues=> {
-      this.setState({
-        page: 1,
-        formValues
-      }, this.getData)
-    };
+      searchData = (formValues: Store) => {
+        this.setState({
+          page: 1,
+          formValues
+        }, this.getData)
+      };
 
-    handlePageChange = (page, num) => {
-      this.setState({
-        page,
-        num
-      }, this.getData)
-    };
+      handlePageChange = (page, num) => {
+        this.setState({
+          page,
+          num
+        }, this.getData)
+      };
 
-    render() {
-      return (
-        <WrapComponent
-          ref={com => this.warpCom = com}
-          {...this.props }
-          {...this.state}
-          resetData={this.resetData}
-          searchData={this.searchData}
-          handlePageChange={this.handlePageChange}
-        />
-      )
+      render() {
+        return (
+          <WrapComponent
+            ref={com => this.warpCom = com}
+            {...this.props}
+            {...this.state}
+            resetData={this.resetData}
+            searchData={this.searchData}
+            handlePageChange={this.handlePageChange}
+          />
+        )
+      }
     }
   }
-}

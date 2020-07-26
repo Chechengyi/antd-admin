@@ -26,7 +26,7 @@ const goodsModal: IGoodsModalType = {
     loading: false
   },
   effects: {
-    *getData({payload}, {call, put}){
+    *getData({ payload }, { call, put }) {
       yield put({
         type: 'changeLoading',
         payload: true
@@ -36,6 +36,7 @@ const goodsModal: IGoodsModalType = {
         type: 'saveData',
         payload: res
       });
+      console.log('res', res)
       yield put({
         type: 'changeLoading',
         payload: false
@@ -43,13 +44,13 @@ const goodsModal: IGoodsModalType = {
     }
   },
   reducers: {
-    saveData(state, {payload}){
+    saveData(state, { payload }) {
       return {
         ...state,
         list: payload
       }
     },
-    changeLoading(state, {payload}){
+    changeLoading(state, { payload }) {
       return {
         ...state,
         loading: payload
