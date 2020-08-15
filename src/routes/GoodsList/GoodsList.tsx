@@ -10,9 +10,8 @@ import {
   Button
 } from 'antd'
 import { RouteComponentProps } from 'react-router-dom'
-import { ConnectState, IGoodsModalState } from '../../models/connect'
-import useTable from '../../hooks/useTable'
-import { FormInstance } from 'antd/lib/form'
+import { ConnectState, IGoodsModalState } from '@models/connect'
+import useTable from '@hooks/useTable'
 
 interface GoodsListProps extends RouteComponentProps, IGoodsModalState {
   dispatch: (e) => void;

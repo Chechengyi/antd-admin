@@ -12,12 +12,23 @@
     // "noEmit": true,
     "noEmit": false,
     "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*":["src/*"],
+      "@components/*":["src/components/*"],
+      "@common/*":["src/common/*"],
+      "@services/*":["src/services/*"],
+      "@models/*": ["src/models/*"],
+      "@utils/*": ["src/utils/*"],
+      "@hoc/*": ["src/hoc/*"],
+      "@hooks/*": ["src/hooks/*"]
+    }
   },
   "files": [
     "./src/models/connect.ts"
   ],
   "include": [
     "src"
-  ]
+  ],
 }

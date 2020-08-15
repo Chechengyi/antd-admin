@@ -95,6 +95,14 @@ module.exports = {
       path.resolve(__dirname, '../src')
     ],
     extensions: [".wasm", ".mjs", ".js", ".json", ".jsx", ".tsx", ".ts", ".d.ts"],
+    alias: {
+      "@models": path.resolve(__dirname, '../src/models'),
+      "@components": path.resolve(__dirname, '../src/components'),
+      "@services": path.resolve(__dirname, '../src/services'),
+      "@hoc": path.resolve(__dirname, '../src/hoc'),
+      "@hooks": path.resolve(__dirname, '../src/hooks'),
+      "@utils": path.resolve(__dirname, '../src/utils'),
+    }
   },
 
   plugins: [

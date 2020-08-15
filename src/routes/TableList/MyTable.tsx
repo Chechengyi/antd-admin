@@ -3,12 +3,17 @@ import { connect } from 'dva'
 import {
   Table
 } from 'antd'
+import { IOrderModalState, ConnectState } from '../../models/connect'
+import { HocTableComponentProps } from '../../hoc/table'
 
-@connect( state=>({
+
+type MyTableProps  = Partial<IOrderModalState> & Partial<HocTableComponentProps>
+
+@connect( (state: ConnectState)=>({
   list: state.order.list,
-  loading: state.order.loading
+  loading: state.order.loading,
 }))
-export default class MyTable extends React.Component {
+export default class MyTable extends React.Component<MyTableProps> {
   render(){
     const columns = [
       {
@@ -26,7 +31,7 @@ export default class MyTable extends React.Component {
           loading={this.props.loading}
           columns={columns}
           dataSource={this.props.list}
-          rowKey={record=>record.id}
+          rowKey={record=>(record as any).id}
           pagination={
             {
               total: 200,

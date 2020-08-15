@@ -12,6 +12,7 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 const port = 8080;
 
+
 const devWebpackConfig = merge(commenConfig, {
   mode: "development",
   output: {

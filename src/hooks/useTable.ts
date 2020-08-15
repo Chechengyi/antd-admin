@@ -86,6 +86,6 @@ const useTable =
       resetData,
       handlePageChange
     }]
-  }
+}
 
 export default useTable

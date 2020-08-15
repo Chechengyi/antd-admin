@@ -1,6 +1,6 @@
 import { Effect } from 'dva'
 import { Reducer } from 'redux'
-import { login } from '../services/api'
+import { login } from '@services/api'
 import { routerRedux } from 'dva/router'
 
 type LOGIN_STATUS = 'LOGIN' | 'NO_LOGIN' | 'ERROR';

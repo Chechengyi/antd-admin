@@ -6,7 +6,7 @@ import {
   Menu,
   Breadcrumb
 } from 'antd'
-import { LoginOutlined, UserOutlined } from '@ant-design/icons'
+import { LoginOutlined, UserOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import styles from './index.less'
 import { connect } from 'dva'
 import { getMenuData } from '../../common/menu'
@@ -72,6 +72,12 @@ class GlobalHeader extends React.Component<IGlobalHeader> {
     return (
       <Header className={styles.headerWarp}>
         <div className={styles.locationInfo}>
+         <div className={styles.collapsedBtnBox} onClick={this.changeCollapsed}>
+           {this.props.collapsed?
+            <MenuUnfoldOutlined style={{fontSize: 24}} /> :
+            <MenuFoldOutlined style={{fontSize: 24}} />
+          }
+         </div>
           <Breadcrumb>
             {/* <Breadcrumb.Item>首页</Breadcrumb.Item> */}
             {

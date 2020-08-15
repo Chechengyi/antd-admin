@@ -7,10 +7,9 @@ import {
   Alert
 } from 'antd'
 import { UserOutlined, LockFilled } from '@ant-design/icons'
-import { FormProps } from 'antd/lib/form/Form'
 import { connect } from 'dva'
 import { RouteComponentProps } from 'react-router-dom'
-import { LoginModalState, ConnectState } from '../../models/connect'
+import { LoginModalState, ConnectState } from '@models/connect'
 
 
 interface LoginProps extends RouteComponentProps, LoginModalState {

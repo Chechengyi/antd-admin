@@ -15,7 +15,7 @@ interface ISideMenuProps {
   menuData: MenuDataItem[];
   location: RouteComponentProps['location'];
   history: RouteComponentProps['history'];
-  collapsed: IGlobalModalState['collapsed']
+  collapsed: IGlobalModalState['collapsed'];
 }
 
 interface ISideMenuState {
@@ -174,6 +174,7 @@ class SideMenu extends React.Component<ISideMenuProps, State> {
           mode="inline"
           onSelect={this.handSelect}
           onOpenChange={this.handMenuChange}
+          inlineCollapsed={this.props.collapsed}
         >
           {this.getNavMenuItems(this.props.menuData)}
         </Menu>

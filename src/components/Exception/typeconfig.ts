@@ -1,4 +1,12 @@
-export const typeConfig = {
+type TypeConfig = {
+  [name: string]: {
+    img: string;
+    desc: string;
+    title: string
+  }
+}
+
+export const typeConfig: TypeConfig = {
   404: {
     img: 'https://gw.alipayobjects.com/zos/rmsportal/KpnpchXsobRgLElEozzI.svg',
     desc: '404，抱歉，你访问的页面不存在',

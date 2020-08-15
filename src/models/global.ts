@@ -9,7 +9,6 @@ export interface IGlobalModalType {
   namespace: 'global';
   state: IGlobalModalState;
   effects: {
-
   };
   reducers: {
     changeLayoutCollapsed: Reducer<IGlobalModalState>
@@ -22,7 +21,7 @@ const globalModal: IGlobalModalType = {
     collapsed: false
   },
   effects: {
-
+   
   },
   reducers: {
     changeLayoutCollapsed(state, {payload}) {

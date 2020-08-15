@@ -3,9 +3,9 @@ import {
   Card,
   Breadcrumb
 } from 'antd'
-import { getMenuData } from '../../common/menu'
+import { getMenuData } from '@common/menu'
 
-export default class PageHeader extends React.Component {
+export default class PageHeader extends React.Component<any> {
 
   componentDidMount(){
     this.getBreadcrumbList()

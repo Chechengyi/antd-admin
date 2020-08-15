@@ -5,10 +5,10 @@ import {
   Input,
   Button
 } from 'antd'
-import TableHoc, { HocTableComponentProps } from '../../hoc/table'
+import TableHoc, { HocTableComponentProps } from '@hoc/table'
 import { connect } from 'dva'
 import MyTable from './MyTable'
-import { ConnectState } from '../../models/connect'
+import { ConnectState } from '@models/connect'
 import { RouteComponentProps } from 'react-router-dom'
 import { FormInstance } from 'antd/lib/form'
 
